@@ -1,6 +1,17 @@
 import { createTheme, responsiveFontSizes, ThemeOptions } from '@mui/material';
 
 const customTheme = createTheme({
+  breakpoints: {
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 600,
+        md: 960,
+        lg: 1280,
+        xl: 1920,
+      },
+    },
+  },
   components: {
     MuiButton: {
       defaultProps: {

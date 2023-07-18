@@ -6,6 +6,7 @@ import i18next from 'i18next';
 import { zodI18nMap } from 'zod-i18n-map';
 import translation from 'zod-i18n-map/locales/es/zod.json';
 import { z } from 'zod';
+import AppLoader from 'components/appLoader/appLoader';
 
 i18next.init({
   lng: 'es',
@@ -19,6 +20,7 @@ z.setErrorMap(zodI18nMap);
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
+      <AppLoader />
       <Routes />
     </ThemeProvider>
   );

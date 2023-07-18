@@ -7,6 +7,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { required } from 'utils/validators/required';
 import zodValidator from 'utils/validators/zodValidator';
 import { z } from 'zod';
+import useSignup from './useSignup';
 
 const RestrictedBanner = '/svgs/restrictedBanner.svg';
 const LoginAdmin = '/svgs/loginAdmin.svg';
@@ -19,6 +20,8 @@ const Signup = () => {
   const isAdmin = useMemo(() => {
     return pathname.includes('admin');
   }, [pathname]);
+
+  const { handleSignup } = useSignup({ isAdmin });
 
   useEffect(() => {
     console.log(queryParams.get('code'));
@@ -41,7 +44,7 @@ const Signup = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Form onSubmit={() => {}}>
+            <Form onSubmit={handleSignup}>
               {({ watch }) => (
                 <Grid container spacing={2}>
                   {isAdmin && (

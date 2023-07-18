@@ -1,4 +1,5 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, useMediaQuery } from '@mui/material';
+import { useTheme } from '@emotion/react';
 import React from 'react';
 
 type FormLayoutProps = {
@@ -8,19 +9,23 @@ type FormLayoutProps = {
 };
 
 const FormLayout = ({ leftBackgroundImage, leftImage, formComponent }: FormLayoutProps) => {
+  const { breakpoints } = useTheme();
+  const mobile = useMediaQuery(breakpoints.down('md'));
   return (
     <Box height='100vh'>
       <Grid container height='100%'>
-        <Grid
-          item
-          md={5}
-          display='flex'
-          justifyContent='center'
-          alignItems='center'
-          style={{ backgroundImage: `url(${leftBackgroundImage})` }}
-        >
-          <img src={leftImage} width={500} />
-        </Grid>
+        {!mobile && (
+          <Grid
+            item
+            md={5}
+            display='flex'
+            justifyContent='center'
+            alignItems='center'
+            style={{ backgroundImage: `url(${leftBackgroundImage})` }}
+          >
+            <img src={leftImage} width={500} />
+          </Grid>
+        )}
         <Grid
           item
           md={7}
