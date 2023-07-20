@@ -1,7 +1,6 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes as RouterDomRoutes, Route, Navigate } from 'react-router-dom';
 
-const Dashboard = lazy(() => import('../dashboard/dashboard'));
 const Private = lazy(() => import('../layouts/private/private'));
 const Public = lazy(() => import('../layouts/public/public'));
 const Restricted = lazy(() => import('../layouts/restricted/restricted'));
@@ -9,6 +8,8 @@ const Login = lazy(() => import('../login/login'));
 const Signup = lazy(() => import('../signup/signup'));
 const Store = lazy(() => import('../store/store'));
 const NewStore = lazy(() => import('../newStore/newStore'));
+const Dashboard = lazy(() => import('../dashboard/dashboard'));
+const Product = lazy(() => import('../products/products'));
 
 const Routes = () => {
   return (
@@ -19,15 +20,9 @@ const Routes = () => {
             <Route path='*' element={<Navigate to='/login' />} />
             <Route path='login' element={<Login />} />
             <Route path='signup' element={<Signup />} />
-
-            <Route path='admin'>
-              <Route path='login' element={<Login />} />
-              <Route path='signup' element={<Signup />} />
-            </Route>
-
-            <Route path='store'>
-              <Route path='new' element={<NewStore />} />
-            </Route>
+            <Route path='new-store' element={<NewStore />} />
+            <Route path='admin-login' element={<Login />} />
+            <Route path='admin-signup' element={<Signup />} />
           </Route>
 
           <Route path='/' element={<Public />}>
@@ -39,6 +34,7 @@ const Routes = () => {
           <Route path='/' element={<Private />}>
             <Route path='admin'>
               <Route path='dashboard' element={<Dashboard />} />
+              <Route path='products' element={<Product />} />
             </Route>
           </Route>
         </RouterDomRoutes>

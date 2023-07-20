@@ -5,9 +5,11 @@ import FormLayout from 'containers/layouts/restricted/formLayout/formLayout';
 import { required } from 'utils/validators/required';
 import zodValidator from 'utils/validators/zodValidator';
 import { z } from 'zod';
+import useNewStore from './useNewStore';
 const RestrictedBanner = '/svgs/restrictedBanner.svg';
 const OnlineShopping = '/svgs/onlineShopping.svg';
 const NewStore = () => {
+  const { handleSubmit } = useNewStore();
   return (
     <FormLayout
       leftBackgroundImage={RestrictedBanner}
@@ -23,13 +25,12 @@ const NewStore = () => {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Form onSubmit={(v) => console.log(v)}>
+            <Form onSubmit={handleSubmit}>
               {({ watch }) => (
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField name='storeName' label='Nombre de la tienda' fullWidth required rules={required} />
                   </Grid>
-                  {/* TODO logo img */}
                   <Grid item xs={12}>
                     <Divider>
                       <Typography variant='caption' color='GrayText'>

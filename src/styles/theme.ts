@@ -13,6 +13,13 @@ const customTheme = createTheme({
     },
   },
   components: {
+    MuiListItemText: {
+      styleOverrides: {
+        primary: {
+          color: 'white',
+        },
+      },
+    },
     MuiButton: {
       defaultProps: {
         variant: 'contained',

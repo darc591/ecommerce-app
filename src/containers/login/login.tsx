@@ -4,17 +4,15 @@ import TextField from '../../components/textField/textField';
 import Form from '../../components/form/form';
 import { z } from 'zod';
 import zodValidator from '../../utils/validators/zodValidator';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import FormLayout from '../layouts/restricted/formLayout/formLayout';
+import useLogin from './useLogin';
 const LoginCliente = '/svgs/loginCliente.svg';
 const RestrictedBanner = '/svgs/restrictedBanner.svg';
 const LoginAdmin = '/svgs/loginAdmin.svg';
 const Login = () => {
   const { pathname } = useLocation();
-
-  const handleSubmit = (formValues: { email: string; password: string }) => {
-    console.log(formValues);
-  };
+  const { handleSubmit } = useLogin();
 
   const isAdmin = useMemo(() => {
     return pathname.includes('admin');
