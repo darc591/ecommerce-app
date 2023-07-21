@@ -9,7 +9,7 @@ const Signup = lazy(() => import('../signup/signup'));
 const Store = lazy(() => import('../store/store'));
 const NewStore = lazy(() => import('../newStore/newStore'));
 const Dashboard = lazy(() => import('../dashboard/dashboard'));
-const Product = lazy(() => import('../products/products'));
+const Products = lazy(() => import('../products/products'));
 
 const Routes = () => {
   return (
@@ -34,7 +34,7 @@ const Routes = () => {
           <Route path='/' element={<Private />}>
             <Route path='admin'>
               <Route path='dashboard' element={<Dashboard />} />
-              <Route path='products' element={<Product />} />
+              <Route path='products' element={<Products />} />
             </Route>
           </Route>
         </RouterDomRoutes>

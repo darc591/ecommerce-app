@@ -20,7 +20,9 @@ const Private = () => {
           },
         ]}
       />
-      <Outlet />
+      <Box ml='250px'>
+        <Outlet />
+      </Box>
     </Box>
   );
 };
