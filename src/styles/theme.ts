@@ -31,6 +31,11 @@ const customTheme = createTheme({
         size: 'small',
       },
     },
+    MuiSelect: {
+      defaultProps: {
+        size: 'small',
+      },
+    },
   },
   shape: {
     borderRadius: 8,

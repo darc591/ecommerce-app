@@ -17,6 +17,7 @@ import { useCallback, useState } from 'react';
 import { CloseRounded } from '@mui/icons-material';
 import TextField from 'components/textField/textField';
 import { CrearProductoFormTypes } from './modalNuevoProducto.types';
+import Select from 'components/select/select';
 
 const ModalNuevoProducto = ({ onClose }: { onClose(): void }) => {
   const [step, setStep] = useState(0);
@@ -66,7 +67,7 @@ const ModalNuevoProducto = ({ onClose }: { onClose(): void }) => {
                   <TextField name='nombre' label='Nombre' fullWidth />
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField name='categoria' label='Categoria' fullWidth />
+                  <Select name='categoria' placeholder='Categoria' options={[{ label: 'Test', value: 1 }]} />
                 </Grid>
               </>
             )}
@@ -86,10 +87,10 @@ const ModalNuevoProducto = ({ onClose }: { onClose(): void }) => {
                       <TextField name='sku' label='SKU' fullWidth />
                     </Grid>
                     <Grid item xs={6}>
-                      <TextField name='tipo' label='Tipo' />
+                      <Select name='tipo' placeholder='Tipo' options={[{ label: 'Test', value: 1 }]} />
                     </Grid>
                     <Grid item xs={6}>
-                      <TextField name='variante' label='Variación' />
+                      <Select name='variante' placeholder='Variante' options={[{ label: 'Test', value: 1 }]} />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField name='stock' label='Cantidad' />
