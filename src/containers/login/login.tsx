@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import { Button, Grid, Link, Typography } from '@mui/material';
 import TextField from '../../components/textField/textField';
 import Form from '../../components/form/form';
@@ -12,6 +12,7 @@ const RestrictedBanner = '/svgs/restrictedBanner.svg';
 const LoginAdmin = '/svgs/loginAdmin.svg';
 const Login = () => {
   const { pathname } = useLocation();
+  const [searchParams] = useSearchParams();
   const { handleSubmit } = useLogin();
 
   const isAdmin = useMemo(() => {
@@ -40,6 +41,7 @@ const Login = () => {
                     name='email'
                     label='Email'
                     inputMode='email'
+                    defaultValue={searchParams.get('email')}
                     required
                     fullWidth
                     rules={zodValidator(z.string().email())}

@@ -1,25 +1,29 @@
-import { useAppStore } from 'store/app/app';
+import { useAppStore } from 'stores/appStore/appStore';
 import { SignupFormTypes } from './signup.types';
 import { api } from 'api/api';
 import { UserType } from 'api/auth/authSchemas';
+import { useNavigate } from 'react-router-dom';
 
 const useSignup = ({ isAdmin }: { isAdmin: boolean }) => {
-  const setLoading = useAppStore((state) => state.setLoading);
+  const navigate = useNavigate();
+  const { setLoading, handleErrors, setNotification } = useAppStore();
 
   const handleSignup = async (formValues: SignupFormTypes) => {
     try {
       setLoading(true);
       await api.auth.signup({
-        userType: isAdmin ? UserType.ADMIN : UserType.CUSTOMER,
+        type_: isAdmin ? UserType.ADMIN : UserType.CUSTOMER,
         email: formValues.email,
-        firstName: formValues.firstName,
-        lastName: formValues.lastName,
+        first_name: formValues.firstName,
+        last_name: formValues.lastName,
         password: formValues.password,
-        inviteCode: formValues.inviteCode,
+        invite_code: formValues.inviteCode,
       });
+      setNotification({ message: 'Usuário registrado!' });
+
+      navigate(isAdmin ? `/admin-login?email=${formValues.email}` : `/login?email=${formValues.email}`);
     } catch (error) {
-      console.log(error);
-      //TODO hanbleErrors
+      handleErrors(error);
     } finally {
       setLoading(false);
     }

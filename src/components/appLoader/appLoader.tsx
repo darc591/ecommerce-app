@@ -1,5 +1,5 @@
+import { useAppStore } from 'stores/appStore/appStore';
 import * as styled from './appLoader.styles';
-import { useAppStore } from 'store/app/app';
 import { CircularProgress } from '@mui/material';
 
 const AppLoader = () => {

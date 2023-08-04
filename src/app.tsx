@@ -7,7 +7,8 @@ import { zodI18nMap } from 'zod-i18n-map';
 import translation from 'zod-i18n-map/locales/es/zod.json';
 import { z } from 'zod';
 import AppLoader from 'components/appLoader/appLoader';
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 i18next.init({
   lng: 'es',
   resources: {
@@ -22,6 +23,18 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <AppLoader />
       <Routes />
+      <ToastContainer
+        position='top-right'
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme='light'
+      />
     </ThemeProvider>
   );
 };

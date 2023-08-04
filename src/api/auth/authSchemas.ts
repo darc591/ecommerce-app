@@ -6,12 +6,12 @@ export enum UserType {
 }
 
 export const signupBody = z.object({
-  firstName: z.string().max(60),
-  lastName: z.string().max(60),
+  first_name: z.string().max(60),
+  last_name: z.string().max(60),
   email: z.string().email(),
   password: z.string().min(6),
-  inviteCode: z.string().optional(),
-  userType: z.nativeEnum(UserType),
+  invite_code: z.string().optional(),
+  type_: z.nativeEnum(UserType),
 });
 
 export const loginBody = z.object({

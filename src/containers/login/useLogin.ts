@@ -1,5 +1,5 @@
 import { api } from 'api/api';
-import { useAppStore } from 'store/app/app';
+import { useAppStore } from 'stores/appStore/appStore';
 
 const useLogin = () => {
   const setLoading = useAppStore((state) => state.setLoading);
