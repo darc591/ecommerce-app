@@ -1,4 +1,4 @@
-import { useAppStore } from 'store/app/app';
+import { useAppStore } from 'stores/appStore/appStore';
 import { NewStoreFormTypes } from './newStore.types';
 import { api } from 'api/api';
 

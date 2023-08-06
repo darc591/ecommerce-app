@@ -18,6 +18,8 @@ import { CloseRounded } from '@mui/icons-material';
 import TextField from 'components/textField/textField';
 import { CrearProductoFormTypes } from './modalNuevoProducto.types';
 import Select from 'components/select/select';
+import Dropzone from 'components/dropzone/dropzone';
+import { required } from 'utils/validators/required';
 
 const ModalNuevoProducto = ({ onClose }: { onClose(): void }) => {
   const [step, setStep] = useState(0);
@@ -39,77 +41,117 @@ const ModalNuevoProducto = ({ onClose }: { onClose(): void }) => {
   return (
     <Dialog open style={{ padding: '10px' }} maxWidth={step === 0 ? 'xs' : 'sm'}>
       <Form onSubmit={handleSubmit}>
-        <DialogTitle>
-          <Box display='flex' justifyContent='space-between'>
-            <Typography variant='h5' fontWeight={700}>
-              Nuevo producto
-            </Typography>
-            <IconButton style={{ color: 'black' }} onClick={onClose}>
-              <CloseRounded />
-            </IconButton>
-          </Box>
-        </DialogTitle>
-        <DialogContent>
-          <Grid container spacing={4} mt={1}>
-            <Grid item xs={12}>
-              <Stepper activeStep={step} alternativeLabel>
-                <Step key='nombre-categoria'>
-                  <StepLabel>Nombre y categoria</StepLabel>
-                </Step>
-                <Step key='descripcion'>
-                  <StepLabel>Descripción y precio</StepLabel>
-                </Step>
-              </Stepper>
-            </Grid>
-            {step === 0 && (
-              <>
+        {({ setValue }) => (
+          <>
+            <DialogTitle>
+              <Box display='flex' justifyContent='space-between'>
+                <Typography variant='h5' fontWeight={700}>
+                  Nuevo producto
+                </Typography>
+                <IconButton style={{ color: 'black' }} onClick={onClose}>
+                  <CloseRounded />
+                </IconButton>
+              </Box>
+            </DialogTitle>
+            <DialogContent>
+              <Grid container spacing={4} mt={1}>
                 <Grid item xs={12}>
-                  <TextField name='nombre' label='Nombre' fullWidth />
+                  <Stepper activeStep={step} alternativeLabel>
+                    <Step key='nombre-categoria'>
+                      <StepLabel>Nombre y categoria</StepLabel>
+                    </Step>
+                    <Step key='descripcion'>
+                      <StepLabel>Descripción y precio</StepLabel>
+                    </Step>
+                  </Stepper>
                 </Grid>
-                <Grid item xs={12}>
-                  <Select name='categoria' placeholder='Categoria' options={[{ label: 'Test', value: 1 }]} />
-                </Grid>
-              </>
-            )}
-            {step === 1 && (
-              <>
-                <Grid item xs={4}>
-                  <Box width='150px' height='150px' border='1px solid black'>
-                    image
-                  </Box>
-                </Grid>
-                <Grid item xs={8}>
-                  <Grid container spacing={2}>
+                {step === 0 && (
+                  <>
                     <Grid item xs={12}>
-                      <TextField name='descripcion' label='Descripción' rows={3} multiline fullWidth />
+                      <TextField name='nombre' label='Nombre' required fullWidth rules={required} />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField name='sku' label='SKU' fullWidth />
+                      <Select
+                        name='categoria'
+                        placeholder='Categoria'
+                        required
+                        rules={required}
+                        options={[{ label: 'Test', value: 1 }]}
+                      />
                     </Grid>
-                    <Grid item xs={6}>
-                      <Select name='tipo' placeholder='Tipo' options={[{ label: 'Test', value: 1 }]} />
+                  </>
+                )}
+                {step === 1 && (
+                  <>
+                    <Grid item xs={4}>
+                      <Box>
+                        <Dropzone
+                          onChange={(files) => {
+                            if (files.length === 0) {
+                              setValue('image', undefined);
+                            } else {
+                              setValue('image', files[0]);
+                            }
+                          }}
+                          label='Seleccione una imagen'
+                          accept='.png'
+                        />
+                      </Box>
                     </Grid>
-                    <Grid item xs={6}>
-                      <Select name='variante' placeholder='Variante' options={[{ label: 'Test', value: 1 }]} />
+                    <Grid item xs={8}>
+                      <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                          <TextField
+                            name='descripcion'
+                            label='Descripción'
+                            rows={3}
+                            multiline
+                            fullWidth
+                            required
+                            rules={required}
+                          />
+                        </Grid>
+                        <Grid item xs={12}>
+                          <TextField name='sku' label='SKU' fullWidth required rules={required} />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Select
+                            name='tipo'
+                            placeholder='Tipo'
+                            options={[{ label: 'Test', value: 1 }]}
+                            required
+                            rules={required}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Select
+                            name='variante'
+                            placeholder='Variante'
+                            options={[{ label: 'Test', value: 1 }]}
+                            required
+                            rules={required}
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField name='stock' label='Cantidad' required rules={required} />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <TextField name='precio' label='Precio' required rules={required} />
+                        </Grid>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <TextField name='stock' label='Cantidad' />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField name='precio' label='Precio' />
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </>
-            )}
-          </Grid>
-        </DialogContent>
-        <DialogActions style={{ padding: 20 }}>
-          <Button color='neutral' onClick={() => (step === 0 ? onClose() : setStep(0))}>
-            {step === 0 ? 'Cancelar' : 'Volver'}
-          </Button>
-          <Button type='submit'>Continuar</Button>
-        </DialogActions>
+                  </>
+                )}
+              </Grid>
+            </DialogContent>
+            <DialogActions style={{ padding: 20 }}>
+              <Button color='neutral' onClick={() => (step === 0 ? onClose() : setStep(0))}>
+                {step === 0 ? 'Cancelar' : 'Volver'}
+              </Button>
+              <Button type='submit'>Continuar</Button>
+            </DialogActions>
+          </>
+        )}
       </Form>
     </Dialog>
   );

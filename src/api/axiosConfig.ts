@@ -6,5 +6,6 @@ export const axiosInstance = axios.create({
 
 export const baseUrls = {
   auth: '/auth',
-  store: '/store',
+  store: '/stores',
+  product: '/products',
 };

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { Alert } from '@mui/material';
-import { toRem } from '../../utils/toRem/toRem';
+import { toRem } from '../../utils/toRem';
 
 export const StyledIndicator = styled(Alert)`
   font-size: ${toRem(12)};
