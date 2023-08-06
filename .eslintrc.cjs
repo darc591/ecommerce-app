@@ -29,5 +29,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-unsafe-return': 'off',
+    '@typescript-eslint/unbound-method': 'off',
+    '@typescript-eslint/no-unsafe-call': 'off',
+    'react-hooks/exhaustive-deps': 'off'
   },
 };

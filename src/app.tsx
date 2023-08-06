@@ -9,6 +9,8 @@ import { z } from 'zod';
 import AppLoader from 'components/appLoader/appLoader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter } from 'react-router-dom';
+
 i18next.init({
   lng: 'es',
   resources: {
@@ -22,7 +24,9 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <AppLoader />
-      <Routes />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
       <ToastContainer
         position='top-right'
         autoClose={5000}

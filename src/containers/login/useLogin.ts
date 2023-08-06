@@ -1,8 +1,12 @@
 import { api } from 'api/api';
+import { useNavigate } from 'react-router-dom';
 import { useAppStore } from 'stores/appStore/appStore';
+import { useAuthStore } from 'stores/authStore/authStore';
 
 const useLogin = () => {
-  const setLoading = useAppStore((state) => state.setLoading);
+  const { setLoading, handleErrors } = useAppStore();
+  const { login } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (formValues: { email: string; password: string }) => {
     try {
@@ -11,8 +15,9 @@ const useLogin = () => {
         email: formValues.email,
         password: formValues.password,
       });
+      login(result.data.data.token as string, navigate);
     } catch (error) {
-      console.log(error);
+      handleErrors(error);
     } finally {
       setLoading(false);
     }

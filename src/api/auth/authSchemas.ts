@@ -1,9 +1,5 @@
+import { UserType } from 'stores/authStore/authStore';
 import { z } from 'zod';
-
-export enum UserType {
-  CUSTOMER,
-  ADMIN,
-}
 
 export const signupBody = z.object({
   first_name: z.string().max(60),

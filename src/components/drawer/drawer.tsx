@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { Settings, Logout } from '@mui/icons-material';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuthStore } from 'stores/authStore/authStore';
 
 export type DrawerProps = {
   routes: {
@@ -20,6 +21,7 @@ export type DrawerProps = {
 };
 
 const Drawer = ({ routes }: DrawerProps) => {
+  const { logout } = useAuthStore();
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -73,7 +75,7 @@ const Drawer = ({ routes }: DrawerProps) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => logout()}>
               <ListItemIcon style={{ color: 'white' }}>
                 <Logout />
               </ListItemIcon>

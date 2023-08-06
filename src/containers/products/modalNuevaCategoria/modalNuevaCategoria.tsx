@@ -4,16 +4,18 @@ import { api } from 'api/api';
 import Form from 'components/form/form';
 import TextField from 'components/textField/textField';
 import { useAppStore } from 'stores/appStore/appStore';
+import { useAuthStore } from 'stores/authStore/authStore';
 import { required } from 'utils/validators/required';
 
 const ModalNuevaCategoria = ({ onClose }: { onClose(): void }) => {
   const { handleErrors, setLoading, setNotification } = useAppStore();
+  const { currentStore } = useAuthStore();
   const handleSubmit = async (formValues: { nombre: string }) => {
     try {
       setLoading(true);
       await api.product.createCategory({
         name: formValues.nombre,
-        store_id: 5,
+        store_id: currentStore!,
       });
       setNotification({
         message: 'Categoria creada!',

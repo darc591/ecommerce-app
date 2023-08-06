@@ -1,5 +1,5 @@
 import { Suspense, lazy } from 'react';
-import { BrowserRouter, Routes as RouterDomRoutes, Route, Navigate } from 'react-router-dom';
+import { Routes as RouterDomRoutes, Route, Navigate } from 'react-router-dom';
 
 const Private = lazy(() => import('../layouts/private/private'));
 const Public = lazy(() => import('../layouts/public/public'));
@@ -11,35 +11,34 @@ const NewStore = lazy(() => import('../newStore/newStore'));
 const Dashboard = lazy(() => import('../dashboard/dashboard'));
 const Products = lazy(() => import('../products/products'));
 
+import AppLoader from 'components/appLoader/appLoader';
 const Routes = () => {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<h1>...Loading</h1>}>
-        <RouterDomRoutes>
-          <Route path='/' element={<Restricted />}>
-            <Route path='*' element={<Navigate to='/login' />} />
-            <Route path='login' element={<Login />} />
-            <Route path='signup' element={<Signup />} />
-            <Route path='new-store' element={<NewStore />} />
-            <Route path='admin-login' element={<Login />} />
-            <Route path='admin-signup' element={<Signup />} />
-          </Route>
+    <Suspense fallback={<AppLoader />}>
+      <RouterDomRoutes>
+        <Route path='/' element={<Restricted />}>
+          <Route path='*' element={<Navigate to='/login' />} />
+          <Route path='login' element={<Login />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='new-store' element={<NewStore />} />
+          <Route path='admin-login' element={<Login />} />
+          <Route path='admin-signup' element={<Signup />} />
+        </Route>
 
-          <Route path='/' element={<Public />}>
-            <Route path='store'>
-              <Route path=':storeId' element={<Store />} />
-            </Route>
+        <Route path='/' element={<Public />}>
+          <Route path='store'>
+            <Route path=':storeId' element={<Store />} />
           </Route>
+        </Route>
 
-          <Route path='/' element={<Private />}>
-            <Route path='admin'>
-              <Route path='dashboard' element={<Dashboard />} />
-              <Route path='products' element={<Products />} />
-            </Route>
+        <Route path='/' element={<Private />}>
+          <Route path='admin'>
+            <Route path='dashboard' element={<Dashboard />} />
+            <Route path='products' element={<Products />} />
           </Route>
-        </RouterDomRoutes>
-      </Suspense>
-    </BrowserRouter>
+        </Route>
+      </RouterDomRoutes>
+    </Suspense>
   );
 };
 
