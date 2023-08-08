@@ -75,7 +75,9 @@ const Select = ({
               ))}
             </MuiSelect>
           </Grid>
-          <Grid item>{error && <Indicator severity='error'>{error?.message as string}</Indicator>}</Grid>
+          <Grid item>
+            {error && <Indicator severity='error'>{error?.message as string}</Indicator>}
+          </Grid>
         </Grid>
       )}
     />
