@@ -9,7 +9,6 @@ const Restricted = () => {
 
   useEffect(() => {
     const cookieToken = Cookie.get('id_token');
-    console.log({ user, cookieToken });
     if (!user && cookieToken) {
       login(cookieToken, navigate);
     }

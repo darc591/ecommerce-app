@@ -8,7 +8,7 @@ import {
 import { Controller, FieldValues, UseControllerProps, useFormContext } from 'react-hook-form';
 import Indicator from 'components/indicator/indicator';
 
-type AutocompleteOption =
+export type AutocompleteOption =
   | {
       label: string;
       value: number;
@@ -18,12 +18,13 @@ type AutocompleteOption =
 type AutocompleteProps<T = any> = Omit<UseControllerProps, 'control'> &
   Omit<
     MuiAutocompleteProps<T, any, any, any>,
-    'renderInput' | 'size' | 'onInputChange' | 'options'| 'onChange'
+    'renderInput' | 'size' | 'onInputChange' | 'options' | 'onChange'
   > & {
     label?: string;
     options: AutocompleteOption[];
     onChange?(option: any | null): void;
     onInputChange?(value: string, values: FieldValues): void;
+    required?: boolean;
   };
 
 const Autocomplete = ({
@@ -31,6 +32,7 @@ const Autocomplete = ({
   rules,
   label,
   options,
+  required,
   placeholder,
   onChange,
   onInputChange,
@@ -64,6 +66,7 @@ const Autocomplete = ({
               renderInput={(params) => (
                 <TextField
                   {...params}
+                  required={required}
                   placeholder={placeholder}
                   error={Boolean(error)}
                   label={label}

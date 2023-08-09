@@ -12,12 +12,32 @@ import {
 } from '@mui/material';
 import Autocomplete from 'components/autocomplete/autocomplete';
 import Form from 'components/form/form';
-import { required } from 'utils/validators/required';
+import TextField from 'components/textField/textField';
+import { useEffect } from 'react';
+import { useProductStore } from 'stores/productStore/productStore';
 
+import { required } from 'utils/validators/required';
 const ModalNuevaVariante = ({ onClose }: { onClose(): void }) => {
+  const { listVariants, variantOptions, createVariant } = useProductStore();
+
+  const handleSubmit = (formValues: { tipo: string; variante: string }) => {
+    createVariant(
+      {
+        name: formValues.tipo,
+        value: formValues.variante,
+      },
+      onClose,
+    );
+  };
+
+  useEffect(() => {
+    if (variantOptions === null) {
+      listVariants();
+    }
+  }, [variantOptions]);
   return (
     <Dialog open style={{ padding: '10px' }} maxWidth='xs' fullWidth>
-      <Form onSubmit={(v) => console.log(v)}>
+      <Form onSubmit={handleSubmit}>
         <DialogTitle>
           <Box display='flex' justifyContent='space-between'>
             <Typography variant='h5' fontWeight={700}>
@@ -34,19 +54,14 @@ const ModalNuevaVariante = ({ onClose }: { onClose(): void }) => {
               <Autocomplete
                 name='tipo'
                 label='Tipo'
-                options={[{ label: 'test', value: 1 },{ label: 'aaaa', value: 1 }]}
+                options={Object.keys(variantOptions ?? {})}
+                required
                 freeSolo
                 rules={required}
               />
             </Grid>
             <Grid item xs={6}>
-              <Autocomplete
-                name='variante'
-                label='Variante'
-                options={[{ label: 'test', value: 2 }]}
-                freeSolo
-                rules={required}
-              />
+              <TextField name='variante' label='Variante' required rules={required} />
             </Grid>
           </Grid>
         </DialogContent>

@@ -24,3 +24,5 @@ const productCategorySchema = z.object({
 export type CrearProductoBody = z.infer<typeof productSchema>;
 
 export type CrearCategoriaBody = z.infer<typeof productCategorySchema>;
+
+export type CrearVarianteBody = { name: string; value: string };
