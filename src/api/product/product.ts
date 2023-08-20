@@ -4,6 +4,8 @@ import { CrearCategoriaBody, CrearProductoBody, CrearVarianteBody } from './prod
 export const product = {
   listVariants: () => axiosInstance.get(`${baseUrls.product}/variants`),
 
+  listCategories: () => axiosInstance.get(`${baseUrls.product}/categories`),
+
   create: (body: CrearProductoBody) => axiosInstance.post(baseUrls.product, body),
 
   createCategory: (body: CrearCategoriaBody) =>

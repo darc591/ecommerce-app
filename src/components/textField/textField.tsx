@@ -1,11 +1,12 @@
 import { Controller, ControllerProps, FieldValues, useFormContext } from 'react-hook-form';
 import { Grid, TextField as MuiTextField, TextFieldProps as TFProps } from '@mui/material';
-
+import * as masks from 'utils/masks';
 import Indicator from '../indicator/indicator';
 
 type TextFieldProps = TFProps &
   Omit<ControllerProps, 'render' | 'control'> & {
     onInputChange?: (value: string, values: FieldValues) => void;
+    mask?: 'currency';
   };
 
 const TextField = ({
@@ -17,11 +18,28 @@ const TextField = ({
   onInputChange,
   rules,
   defaultValue,
+  mask,
   shouldUnregister,
   ...rest
 }: TextFieldProps) => {
   const useForm = useFormContext();
   const error = useForm.formState.errors[name];
+
+  const handleFormat = (value: string) => {
+    if (mask) {
+      return masks?.[mask]?.format(value);
+    } else {
+      return value;
+    }
+  };
+
+  const handleParse = (value: string) => {
+    if (mask) {
+      return masks?.[mask]?.parse(value);
+    } else {
+      return value;
+    }
+  };
   return (
     <Controller
       name={name}
@@ -39,9 +57,9 @@ const TextField = ({
               variant={variant}
               defaultValue={defaultValue}
               error={Boolean(error)}
-              value={value}
+              value={handleFormat(value || (value != 0 ? '' : value))}
               onChange={(e) => {
-                const value = e.target.value;
+                const value = handleParse(e.target.value) as string;
                 onChange(value);
                 onInputChange?.(value, useForm.getValues());
               }}
@@ -56,7 +74,9 @@ const TextField = ({
               {...rest}
             />
           </Grid>
-          <Grid item>{error && <Indicator severity='error'>{error?.message as string}</Indicator>}</Grid>
+          <Grid item>
+            {error && <Indicator severity='error'>{error?.message as string}</Indicator>}
+          </Grid>
         </Grid>
       )}
     />

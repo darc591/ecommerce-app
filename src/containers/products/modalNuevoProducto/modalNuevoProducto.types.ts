@@ -1,15 +1,14 @@
-type SelectObject = {
-  label: string;
-  value: number;
-};
+import { ExtFile } from '@dropzone-ui/react';
+import { SelectOption } from 'components/select/select';
 
 export type CrearProductoFormTypes = {
   nombre: string;
-  categoria: SelectObject;
+  categoria: SelectOption;
   descripcion: string;
+  image?: ExtFile;
   sku: string;
   tipo: string;
-  variante: string;
-  stock: number;
+  variante: SelectOption;
+  stock: string;
   precio: number;
 };

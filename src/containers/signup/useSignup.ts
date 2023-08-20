@@ -1,8 +1,8 @@
 import { useAppStore } from 'stores/appStore/appStore';
 import { SignupFormTypes } from './signup.types';
 import { api } from 'api/api';
-import { UserType } from 'api/auth/authSchemas';
 import { useNavigate } from 'react-router-dom';
+import { UserType } from 'stores/authStore/authStore';
 
 const useSignup = ({ isAdmin }: { isAdmin: boolean }) => {
   const navigate = useNavigate();
@@ -21,7 +21,9 @@ const useSignup = ({ isAdmin }: { isAdmin: boolean }) => {
       });
       setNotification({ message: 'Usuário registrado!' });
 
-      navigate(isAdmin ? `/admin-login?email=${formValues.email}` : `/login?email=${formValues.email}`);
+      navigate(
+        isAdmin ? `/admin-login?email=${formValues.email}` : `/login?email=${formValues.email}`,
+      );
     } catch (error) {
       handleErrors(error);
     } finally {

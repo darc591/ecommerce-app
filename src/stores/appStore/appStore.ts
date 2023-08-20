@@ -25,7 +25,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
   handleErrors(error) {
     if (isAxiosError(error)) {
-      const message = error.response?.data.message as string;
+      const message = error.response?.data.error as string;
       toast(message, {
         type: 'error',
       });

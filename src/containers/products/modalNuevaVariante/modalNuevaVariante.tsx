@@ -31,10 +31,9 @@ const ModalNuevaVariante = ({ onClose }: { onClose(): void }) => {
   };
 
   useEffect(() => {
-    if (variantOptions === null) {
-      listVariants();
-    }
-  }, [variantOptions]);
+    listVariants();
+  }, []);
+  
   return (
     <Dialog open style={{ padding: '10px' }} maxWidth='xs' fullWidth>
       <Form onSubmit={handleSubmit}>

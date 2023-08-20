@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 const productDataSchema = z.object({
   description: z.string(),
-  image: z.string(),
+  image: z.string().optional(),
   sku: z.string(),
   price: z.number(),
   stock: z.number(),
@@ -11,14 +11,12 @@ const productDataSchema = z.object({
 
 const productSchema = z.object({
   name: z.string(),
-  store_id: z.number(),
   category_id: z.number(),
   data: z.array(productDataSchema).min(1),
 });
 
 const productCategorySchema = z.object({
   name: z.string(),
-  store_id: z.number(),
 });
 
 export type CrearProductoBody = z.infer<typeof productSchema>;
